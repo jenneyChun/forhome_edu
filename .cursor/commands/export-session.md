@@ -1,4 +1,8 @@
 # export-session — 세션 보고서 + Transcript Export
+
+`/export-session` **만** 입력. 추가 인자·질문 **금지**.
+
+Export 요청 시 **magic-square-docs** Skill 로드 후 [phase-checklist.md](../skills/magic-square-docs/phase-checklist.md) 수행.
 이번 대화를 정리해 두 폴더에 저장한다.
 ## 번호 규칙
 1. `Report/`와 `Prompting/`에 있는 기존 `NN.*` 파일을 확인한다.

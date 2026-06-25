@@ -1,0 +1,1 @@
+{'step': 'A', 'status': 'success', 'blank_coords': [(2, 3), (4, 4)]}
