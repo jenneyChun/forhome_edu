@@ -1,0 +1,56 @@
+# MagicSquare_1004 — Cursor Rules (Session 3)
+
+## 프로젝트 개요
+4×4 마방진(Magic Square) 검증 도구. TDD로 `validate_lines`를 구현한다.
+
+## 도메인 규칙
+- 격자: 4×4 (4행 × 4열)
+- 빈칸: `0` (미입력)
+- 유효 숫자: `1` ~ `16` (각각 정확히 1회)
+- 마법상수(Magic Constant): `34` (모든 완성 선의 합)
+- 검증 대상 10선:
+  - 행: R1, R2, R3, R4
+  - 열: C1, C2, C3, C4
+  - 대각: D1 (좌상→우하), D2 (우상→좌하)
+
+## API 계약
+```python
+validate_lines(grid) -> dict
+```
+- `grid`: 4×4 2차원 리스트 (예: `[[1,2,3,4], ...]`)
+- 반환값:
+  - `status`: `"pass"` | `"fail"` | `"incomplete"`
+  - `failed_lines`: 실패한 선 ID 목록 (예: `["R1", "D2"]`)
+- `pass`: 10선 모두 합이 34이고, 1~16이 각 1회
+- `fail`: 빈칸 없음, 하나 이상의 선이 34가 아님
+- `incomplete`: 빈칸(`0`)이 하나 이상 존재
+
+## TDD 사이클 (엄격)
+1. **RED** — 실패하는 테스트만 작성. `tests/`만 수정.
+2. **GREEN** — 테스트를 통과하는 최소 구현. `src/`만 수정.
+3. **REFACTOR** — 동작 유지하며 구조 개선. 테스트는 변경하지 않음.
+
+### TDD 금지 사항
+- assert 완화, 조건 삭제, 기대값 변경으로 RED를 GREEN으로 바꾸지 않는다.
+- `@pytest.mark.skip`, `@pytest.mark.xfail` 사용 금지.
+- RED 단계에서 `src/` 구현을 미리 작성하지 않는다.
+- GREEN 단계에서 테스트를 수정하지 않는다.
+
+## 파일 역할
+- `src/validate_lines.py` — 구현
+- `tests/test_validate_lines.py` — 테스트
+- `pyproject.toml` — pytest 설정 (`pythonpath = ["src"]`)
+
+## AI 응답 규칙
+- **언어**: 항상 한국어로 응답한다.
+- **TDD Phase 선언**: TDD 작업 시 응답 첫 줄에 Phase를 명시한다.
+  - 예: `Phase: RED — 행 합 검증 테스트 추가`
+  - 예: `Phase: GREEN — validate_lines 최소 구현`
+  - 예: `Phase: REFACTOR — 중복 합산 로직 추출`
+- **범위 최소화**: 요청된 Phase와 파일만 수정한다.
+- **Git**: 사용자가 명시적으로 요청할 때만 commit/push한다.
+
+## 코드 스타일
+- 기존 Harness 구조와 네이밍을 따른다.
+- 과도한 추상화·헬퍼·에러 처리를 추가하지 않는다.
+- 테스트는 하나의 행위(assertion)에 하나의 의도를 담는다.
